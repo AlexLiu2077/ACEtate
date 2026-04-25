@@ -1,0 +1,66 @@
+:root {
+  /* Core palette - cool purple/violet tech theme */
+  --color-primary: #7C3AED;
+  --color-primary-light: #A78BFA;
+  --color-primary-dark: #5B21B6;
+  --color-accent: #8B5CF6;
+  --color-accent-glow: rgba(139, 92, 246, 0.35);
+
+  /* Gradient presets */
+  --gradient-primary: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+  --gradient-bg: linear-gradient(160deg, #EDE9FE 0%, #E0E7FF 40%, #F3E8FF 100%);
+  --gradient-card-border: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.08));
+  --gradient-btn: linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #8B5CF6 100%);
+  --gradient-btn-hover: linear-gradient(135deg, #6D28D9 0%, #4F46E5 50%, #7C3AED 100%);
+
+  /* Surfaces */
+  --color-bg: #F0ECFE;
+  --color-bg-card: rgba(255, 255, 255, 0.72);
+  --color-bg-card-solid: #FFFFFF;
+  --color-glass: rgba(255, 255, 255, 0.55);
+
+  /* Text */
+  --color-text: #1E1B4B;
+  --color-text-secondary: #6B7280;
+  --color-text-accent: #7C3AED;
+
+  /* Borders & shadows */
+  --color-border: rgba(139, 92, 246, 0.12);
+  --color-danger: #EF4444;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --shadow-card: 0 4px 24px rgba(124, 58, 237, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 8px 40px rgba(124, 58, 237, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-btn: 0 4px 16px rgba(124, 58, 237, 0.3);
+  --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.2);
+}
+
+/* Global page transition */
+.fade-enter {
+  animation: fadeSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility: glass morphism card */
+.glass-card {
+  background: var(--color-bg-card);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}

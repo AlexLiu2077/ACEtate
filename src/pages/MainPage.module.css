@@ -1,0 +1,18 @@
+.page {
+  min-height: 100vh;
+  background: var(--gradient-bg);
+  position: relative;
+}
+
+.page::before {
+  content: '';
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1), transparent 70%);
+  top: -100px;
+  right: -80px;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
