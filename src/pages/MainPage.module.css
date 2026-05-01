@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.catPage {
+  background: #fff;
+}
+
 .page::before {
   content: '';
   position: fixed;
@@ -15,4 +19,8 @@
   filter: blur(80px);
   pointer-events: none;
   z-index: 0;
+}
+
+.catPage::before {
+  display: none;
 }

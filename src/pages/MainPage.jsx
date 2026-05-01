@@ -8,9 +8,10 @@ import styles from './MainPage.module.css';
 export default function MainPage() {
   const [activeTab, setActiveTab] = useState('words');
   const [isQuizActive, setIsQuizActive] = useState(false);
+  const pageClassName = `${styles.page} ${activeTab === 'cat' ? styles.catPage : ''}`;
 
   return (
-    <div className={styles.page}>
+    <div className={pageClassName}>
       {activeTab === 'words' && <WordMemoryTab onQuizActiveChange={setIsQuizActive} />}
       {activeTab === 'cat' && <MyCatTab />}
       {activeTab === 'profile' && <UserStatusTab />}

@@ -35,7 +35,7 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
     id: 'favorite_memory',
     name: '重点记忆',
     description: '收藏的重点单词',
-    image: '/assets/icon.png',
+    image: '/assets/cover/cover3.png',
     chapters: [
       { id: 'favorite_words', title: '收藏单词', words: favoriteWords },
     ],
@@ -49,9 +49,6 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
   const selectedBook = addedBooks.find((book) => book.id === selectedBookId);
   const activeChapter = selectedBook?.chapters.find((chapter) => chapter.id === quiz?.chapterId);
   const activeWords = quiz?.words || activeChapter?.words || [];
-  const optionPool = visibleWordbooks.flatMap((book) => (
-    book.chapters.flatMap((chapter) => chapter.words)
-  ));
   const allAdded = availableBooks.length === 0;
 
   useEffect(() => {
@@ -66,6 +63,16 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
 
   const getProgressKey = (bookId, chapterId) => `${bookId}:${chapterId}`;
 
+  const getChapterOptionWords = (chapter) => {
+    if (!chapter.optionGroup || !selectedBook) {
+      return chapter.words;
+    }
+
+    return selectedBook.chapters
+      .filter((bookChapter) => bookChapter.optionGroup === chapter.optionGroup)
+      .flatMap((bookChapter) => bookChapter.words);
+  };
+
   const startQuiz = (chapter) => {
     if (chapter.words.length === 0) {
       setFeedback('重点记忆里还没有收藏单词');
@@ -78,15 +85,18 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
       roundIndex: Math.min(1, rawProgress.roundIndex ?? 0),
       cardIndex: Math.min(chapter.words.length - 1, rawProgress.cardIndex ?? 0),
     };
-    const firstWord = chapter.words[savedProgress.cardIndex] || chapter.words[0];
+    const quizWords = shuffle(chapter.words);
+    const optionWords = getChapterOptionWords(chapter);
+    const firstWord = quizWords[savedProgress.cardIndex] || quizWords[0];
     setFeedback('');
     setQuiz({
       progressKey,
       chapterId: chapter.id,
-      words: chapter.words,
+      words: quizWords,
+      optionWords,
       roundIndex: savedProgress.roundIndex,
       cardIndex: savedProgress.cardIndex,
-      options: makeOptions(optionPool, firstWord),
+      options: makeOptions(optionWords, firstWord),
     });
   };
 
@@ -137,9 +147,10 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
       progressKey: quiz.progressKey,
       chapterId: quiz.chapterId,
       words: quiz.words,
+      optionWords: quiz.optionWords,
       roundIndex: nextRoundIndex,
       cardIndex: nextCardIndex,
-      options: makeOptions(optionPool, nextWord),
+      options: makeOptions(quiz.optionWords || words, nextWord),
     });
   };
 

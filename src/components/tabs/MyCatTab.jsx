@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useUser } from '../../context/UserContext';
 import cats from '../../data/cats';
 import styles from './MyCatTab.module.css';
@@ -14,7 +14,18 @@ export default function MyCatTab() {
     petCat,
   } = useUser();
   const [message, setMessage] = useState('');
+  const [interaction, setInteraction] = useState(null);
   const cat = cats.find((c) => c.id === selectedCatId);
+
+  const videoState = useMemo(() => {
+    if (interaction === 'eat') return 'eat';
+    if (interaction === 'pet') return 'pet';
+    if (satiety < 40) return 'hungry';
+    if (intimacy >= 80) return 'close';
+    return 'happy';
+  }, [interaction, intimacy, satiety]);
+
+  const videoSrc = cat ? `/assets/videos/${cat.id}_${videoState}.mp4` : '';
 
   if (!cat) return null;
 
@@ -30,20 +41,30 @@ export default function MyCatTab() {
     }
 
     feedCat();
+    setInteraction('eat');
     setMessage('投喂成功，饱食度 +1');
   };
 
   const handlePet = () => {
     const success = petCat();
+    setInteraction('pet');
     setMessage(success ? '它很开心，亲密度 +1' : '它蹭了蹭你，但这次亲密度没有变化');
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageFrame}>
-        <div className={styles.imageGlow}>
-          <img src={cat.image} alt={catNickname} className={styles.catImage} />
-        </div>
+      <div className={styles.videoFrame}>
+        <video
+          key={videoSrc}
+          className={styles.catVideo}
+          src={videoSrc}
+          poster={cat.image}
+          autoPlay
+          muted
+          playsInline
+          loop={!interaction}
+          onEnded={() => setInteraction(null)}
+        />
       </div>
       <h2 className={styles.nickname}>{catNickname}</h2>
       <div className={styles.statusCard}>

@@ -8,35 +8,22 @@
   z-index: 1;
 }
 
-.imageFrame {
+.videoFrame {
   position: relative;
   margin-bottom: 28px;
-}
-
-.imageFrame::before {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  background: var(--gradient-primary);
-  opacity: 0.25;
-  filter: blur(16px);
-}
-
-.imageGlow {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
+  width: min(92vw, 420px);
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  position: relative;
-  border: 3px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.2);
+  background: #fff;
 }
 
-.catImage {
+.catVideo {
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
+  transform: scale(1.16);
+  transform-origin: center;
 }
 
 .nickname {

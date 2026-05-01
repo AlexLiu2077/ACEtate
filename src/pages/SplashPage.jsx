@@ -6,8 +6,7 @@ export default function SplashPage() {
 
   return (
     <div className={`${styles.container} fade-enter`} onClick={() => navigate('/register')}>
-      <img src="/assets/icon.png" alt="ACEtate" className={styles.logo} />
-      <p className={styles.title}>欢迎来到ACEtate，让你的化学学习更有趣</p>
+      <p className={styles.title}>欢迎使用ACEtate，打开化学学习新天地。</p>
       <p className={styles.hint}>点击任意位置继续</p>
     </div>
   );
