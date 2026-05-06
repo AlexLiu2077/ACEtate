@@ -23,7 +23,7 @@ export default function UserStatusTab() {
       <div className={styles.header}>
         <div className={styles.logoGroup}>
           <span className={styles.logoIcon}>🧪</span>
-          <span className={styles.logoText}>ACEtate</span>
+          <span className={styles.logoText}>Chemicat</span>
         </div>
         <div className={styles.foodBadge}>
           <span className={styles.foodAmount}>{catFood}</span>

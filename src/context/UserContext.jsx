@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 
-const STORAGE_KEY = 'acetate_user';
+const STORAGE_KEY = 'chemicat_user';
 
 function loadUser() {
   try {

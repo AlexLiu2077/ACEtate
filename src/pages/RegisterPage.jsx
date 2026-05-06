@@ -17,7 +17,7 @@ export default function RegisterPage() {
 
   return (
     <div className={`${styles.container} fade-enter`}>
-      <img src="/assets/icon.png" alt="ACEtate" className={styles.logoSmall} />
+      <img src="/assets/newicon.png" alt="Chemicat" className={styles.logoSmall} />
 
       <form className={styles.stepWrapper} onSubmit={handleUsernameSubmit}>
         <h2 className={styles.heading}>请输入你的用户名</h2>

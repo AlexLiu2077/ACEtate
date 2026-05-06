@@ -6,7 +6,7 @@ export default function SplashPage() {
 
   return (
     <div className={`${styles.container} fade-enter`} onClick={() => navigate('/register')}>
-      <p className={styles.title}>欢迎使用ACEtate，打开化学学习新天地。</p>
+      <p className={styles.title}>欢迎使用Chemicat，打开化学学习新天地。</p>
       <p className={styles.hint}>点击任意位置继续</p>
     </div>
   );
