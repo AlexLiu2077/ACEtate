@@ -36,11 +36,9 @@ export default function UserStatusTab() {
         <div className={styles.avatarWrap}>
           <div className={styles.avatarInner}>
             <span className={styles.avatarLetter}>{username ? username[0].toUpperCase() : 'U'}</span>
-            <span className={styles.avatarSub}>化学猫</span>
           </div>
         </div>
         <h2 className={styles.userName}>{username || '用户名'}</h2>
-        <p className={styles.userTitle}>终身学习者</p>
       </div>
 
       {/* Companion Card */}
