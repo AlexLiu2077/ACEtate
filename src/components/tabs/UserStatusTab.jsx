@@ -18,33 +18,66 @@ export default function UserStatusTab() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.avatar}>
-        {username ? username[0].toUpperCase() : '?'}
+      {/* Header */}
+      <div className={styles.header}>
+        <div className={styles.logoGroup}>
+          <span className={styles.logoIcon}>🧪</span>
+          <span className={styles.logoText}>ACEtate</span>
+        </div>
+        <div className={styles.foodBadge}>
+          <span className={styles.foodAmount}>{catFood}</span>
+          <span className={styles.foodIcon}>🍘</span>
+        </div>
       </div>
 
-      <div className={styles.card}>
-        <div className={styles.row}>
-          <span className={styles.label}>用户名</span>
-          <span className={styles.value}>{username}</span>
+      {/* User Info */}
+      <div className={styles.userInfo}>
+        <div className={styles.avatarWrap}>
+          <div className={styles.avatarInner}>
+            <span className={styles.avatarLetter}>{username ? username[0].toUpperCase() : 'U'}</span>
+            <span className={styles.avatarSub}>CHEMICAT</span>
+          </div>
         </div>
-        <div className={styles.divider} />
-        <div className={styles.row}>
-          <span className={styles.label}>学习伙伴</span>
-          <span className={styles.value}>
-            {cat && (
-              <img src={cat.image} alt={catNickname} className={styles.catThumb} />
-            )}
-            {catNickname}
-          </span>
+        <h2 className={styles.userName}>{username || 'User Name'}</h2>
+        <p className={styles.userTitle}>Lifelong Learner</p>
+      </div>
+
+      {/* Companion Card */}
+      <div className={styles.companionCard}>
+        <div className={styles.cardHeader}>
+          <span className={styles.pawIcon}>🐾</span>
+          <span className={styles.cardTitle}>My Companion</span>
         </div>
-        <div className={styles.divider} />
-        <div className={styles.row}>
-          <span className={styles.label}>🍘 猫粮</span>
-          <span className={styles.value}>{catFood}</span>
+        <div className={styles.cardBody}>
+          <div className={styles.catAvatar}>
+            {cat ? <img src={cat.image} alt={catNickname} className={styles.catImg} /> : <span className={styles.defaultCatIcon}>🐱</span>}
+          </div>
+          <div className={styles.catInfo}>
+            <div className={styles.catName}>{catNickname || 'Professor Whiskers'}</div>
+            <div className={styles.totalFood}>
+              <span className={styles.tagIcon}>🏷️</span>
+              TOTAL FOOD: {catFood}
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className={styles.actionList}>
+        <button className={styles.actionBtn}>
+          <span className={styles.btnIcon}>⚙️</span>
+          <span className={styles.btnText}>Account Settings</span>
+          <span className={styles.btnArrow}>›</span>
+        </button>
+        <button className={styles.actionBtn}>
+          <span className={styles.btnIcon}>❔</span>
+          <span className={styles.btnText}>Help & Support</span>
+          <span className={styles.btnArrow}>›</span>
+        </button>
       </div>
 
       <button className={styles.logoutBtn} onClick={() => setShowConfirm(true)}>
+        <span className={styles.logoutIcon}>🗑️</span>
         账号注销
       </button>
 
