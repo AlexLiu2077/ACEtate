@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="public/assets/icon.png" alt="ACEtate Logo" width="120" />
+<img src="public/assets/newicon.png" alt="Chemicat Logo" width="120" />
 
-# ACEtate
+# Chemicat
 
 **边背化学，边养猫 🐱⚗️**
 

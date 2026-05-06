@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useUser } from '../../context/UserContext';
 import cats from '../../data/cats';
 import styles from './MyCatTab.module.css';
+import TopBar from '../TopBar';
 
 export default function MyCatTab() {
   const {
@@ -53,6 +54,7 @@ export default function MyCatTab() {
 
   return (
     <div className={styles.container}>
+      <TopBar />
       <div className={styles.videoFrame}>
         <video
           key={videoSrc}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useUser } from '../../context/UserContext';
 import wordbooks from '../../data/wordbooks';
 import styles from './WordMemoryTab.module.css';
+import TopBar from '../TopBar';
 
 function shuffle(items) {
   return [...items].sort(() => Math.random() - 0.5);
@@ -185,6 +186,7 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
 
     return (
       <div className={styles.container}>
+        <TopBar />
         <div className={styles.quizHeader}>
           <button className={styles.backBtn} onClick={backToChapters}>
             返回
@@ -243,6 +245,7 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
   if (selectedBook) {
     return (
       <div className={styles.container}>
+        <TopBar />
         <div className={styles.headerRow}>
           <button className={styles.backBtn} onClick={() => setSelectedBookId(null)}>
             返回
@@ -279,6 +282,7 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
 
   return (
     <div className={styles.container}>
+      <TopBar />
       <h2 className={styles.pageTitle}>单词记忆</h2>
 
       <div className={styles.booksList}>
