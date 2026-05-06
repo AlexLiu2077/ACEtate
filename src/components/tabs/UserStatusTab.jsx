@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 import cats from '../../data/cats';
+import ConfirmDialog from '../ConfirmDialog';
 import styles from './UserStatusTab.module.css';
 
 export default function UserStatusTab() {
   const navigate = useNavigate();
   const { username, catNickname, selectedCatId, catFood, resetAll } = useUser();
+  const [showConfirm, setShowConfirm] = useState(false);
   const cat = cats.find((c) => c.id === selectedCatId);
 
   const handleReset = () => {
@@ -41,9 +44,18 @@ export default function UserStatusTab() {
         </div>
       </div>
 
-      <button className={styles.logoutBtn} onClick={handleReset}>
-        重置数据
+      <button className={styles.logoutBtn} onClick={() => setShowConfirm(true)}>
+        账号注销
       </button>
+
+      <ConfirmDialog
+        open={showConfirm}
+        message="注销账号后，单词收藏和小猫状态将无法找回，是否继续？"
+        cancelText="再想想"
+        confirmText="继续注销"
+        onCancel={() => setShowConfirm(false)}
+        onConfirm={handleReset}
+      />
     </div>
   );
 }

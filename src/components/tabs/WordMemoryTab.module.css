@@ -479,6 +479,33 @@
   transform: translateY(0);
 }
 
+.navGrid {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.navBtn {
+  flex: 1;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.navBtn:hover {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-text);
+}
+
 .feedback {
   width: 100%;
   max-width: 400px;

@@ -15,8 +15,6 @@ function makeOptions(words, correctWord) {
 
 export default function WordMemoryTab({ onQuizActiveChange }) {
   const {
-    addedWordbooks,
-    addWordbook,
     catFood,
     addCatFood,
     quizProgress,
@@ -26,7 +24,6 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
     addFavoriteWord,
     removeFavoriteWord,
   } = useUser();
-  const [showPicker, setShowPicker] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState(null);
   const [quiz, setQuiz] = useState(null);
   const [feedback, setFeedback] = useState('');
@@ -42,24 +39,14 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
     isFavoriteBook: true,
   };
   const visibleWordbooks = [...wordbooks, favoriteBook];
-  const addedBooks = visibleWordbooks.filter((wb) => (
-    wb.isFavoriteBook || addedWordbooks.includes(wb.id)
-  ));
-  const availableBooks = wordbooks.filter((wb) => !addedWordbooks.includes(wb.id));
-  const selectedBook = addedBooks.find((book) => book.id === selectedBookId);
+  const selectedBook = visibleWordbooks.find((book) => book.id === selectedBookId);
   const activeChapter = selectedBook?.chapters.find((chapter) => chapter.id === quiz?.chapterId);
   const activeWords = quiz?.words || activeChapter?.words || [];
-  const allAdded = availableBooks.length === 0;
 
   useEffect(() => {
     onQuizActiveChange?.(Boolean(quiz));
     return () => onQuizActiveChange?.(false);
   }, [onQuizActiveChange, quiz]);
-
-  const handlePickBook = (bookId) => {
-    addWordbook(bookId);
-    setShowPicker(false);
-  };
 
   const getProgressKey = (bookId, chapterId) => `${bookId}:${chapterId}`;
 
@@ -114,18 +101,11 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
     setFeedback('');
   };
 
-  const handleAnswer = (option) => {
-    const words = activeWords;
-    const currentWord = words[quiz.cardIndex];
-
-    if (option.id !== currentWord.id) {
-      setFeedback('选错了，再试一次');
-      return;
+  const goToNextCard = (addFood) => {
+    if (addFood) {
+      addCatFood(1);
     }
-
-    addCatFood(1);
-    setFeedback('');
-
+    const words = activeWords;
     const isLastCard = quiz.cardIndex === words.length - 1;
     const isLastRound = quiz.roundIndex === 1;
 
@@ -144,13 +124,55 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
     saveQuizProgress(quiz.progressKey, nextProgress);
 
     setQuiz({
-      progressKey: quiz.progressKey,
-      chapterId: quiz.chapterId,
-      words: quiz.words,
-      optionWords: quiz.optionWords,
+      ...quiz,
       roundIndex: nextRoundIndex,
       cardIndex: nextCardIndex,
       options: makeOptions(quiz.optionWords || words, nextWord),
+    });
+  };
+
+  const handleAnswer = (option) => {
+    const currentWord = activeWords[quiz.cardIndex];
+
+    if (option.id !== currentWord.id) {
+      setFeedback('选错了，再试一次');
+      return;
+    }
+
+    setFeedback('');
+    goToNextCard(true);
+  };
+
+  const handleNext = () => {
+    setFeedback('');
+    goToNextCard(false);
+  };
+
+  const handlePrev = () => {
+    const isFirstCard = quiz.cardIndex === 0;
+    const isFirstRound = quiz.roundIndex === 0;
+
+    if (isFirstCard && isFirstRound) {
+      setFeedback('已经是第一题了');
+      return;
+    }
+
+    setFeedback('');
+    const prevRoundIndex = isFirstCard ? quiz.roundIndex - 1 : quiz.roundIndex;
+    const prevCardIndex = isFirstCard ? activeWords.length - 1 : quiz.cardIndex - 1;
+    const prevWord = activeWords[prevCardIndex];
+
+    const prevProgress = {
+      roundIndex: prevRoundIndex,
+      cardIndex: prevCardIndex,
+    };
+    saveQuizProgress(quiz.progressKey, prevProgress);
+
+    setQuiz({
+      ...quiz,
+      roundIndex: prevRoundIndex,
+      cardIndex: prevCardIndex,
+      options: makeOptions(quiz.optionWords || activeWords, prevWord),
     });
   };
 
@@ -204,6 +226,15 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
           ))}
         </div>
 
+        <div className={styles.navGrid}>
+          <button className={styles.navBtn} onClick={handlePrev}>
+            ← 上一题
+          </button>
+          <button className={styles.navBtn} onClick={handleNext}>
+            跳过 (无奖励) →
+          </button>
+        </div>
+
         {feedback && <p className={styles.feedback}>{feedback}</p>}
       </div>
     );
@@ -250,58 +281,11 @@ export default function WordMemoryTab({ onQuizActiveChange }) {
     <div className={styles.container}>
       <h2 className={styles.pageTitle}>单词记忆</h2>
 
-      {/* Added wordbooks list */}
-      {addedBooks.length > 0 && (
-        <div className={styles.booksList}>
-          {addedBooks.map((book) => (
-            <WordbookButton key={book.id} book={book} onClick={() => setSelectedBookId(book.id)} />
-          ))}
-        </div>
-      )}
-
-      {/* Empty state */}
-      {addedBooks.length === 0 && !showPicker && (
-        <div className={styles.emptyState}>
-          <img src="/assets/icon.png" alt="ACEtate" className={styles.emptyLogo} />
-          <p className={styles.emptyText}>还没有添加词库</p>
-          <p className={styles.emptySub}>点击下方按钮开始添加你的第一个词库</p>
-        </div>
-      )}
-
-      {/* Add button - only show when not all added */}
-      {!allAdded && !showPicker && (
-        <button className={styles.addBtn} onClick={() => setShowPicker(true)}>
-          <span className={styles.addIcon}>+</span>
-          添加词库
-        </button>
-      )}
-
-      {/* Picker overlay */}
-      {showPicker && (
-        <div className={styles.pickerOverlay} onClick={() => setShowPicker(false)}>
-          <div className={styles.pickerPanel} onClick={(e) => e.stopPropagation()}>
-            <h3 className={styles.pickerTitle}>选择词库</h3>
-            <p className={styles.pickerSub}>选择一个词库开始学习</p>
-            <div className={styles.pickerCards}>
-              {availableBooks.map((book) => (
-                <button
-                  key={book.id}
-                  className={styles.pickerCard}
-                  onClick={() => handlePickBook(book.id)}
-                >
-                  <div className={styles.pickerImgWrap}>
-                    <img src={book.image} alt={book.name} className={styles.pickerImg} />
-                  </div>
-                  <div className={styles.pickerInfo}>
-                    <h4 className={styles.pickerName}>{book.name}</h4>
-                    <div className={styles.pickerAccent} />
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+      <div className={styles.booksList}>
+        {visibleWordbooks.map((book) => (
+          <WordbookButton key={book.id} book={book} onClick={() => setSelectedBookId(book.id)} />
+        ))}
+      </div>
     </div>
   );
 }

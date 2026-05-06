@@ -15,6 +15,22 @@ function saveUser(data) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
+
+const STORAGE_KEY = 'acetate_user';
+
+function loadUser() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveUser(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
 const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
@@ -26,7 +42,6 @@ export function UserProvider({ children }) {
       selectedCatId: saved.selectedCatId || null,
       catNickname: saved.catNickname || null,
       isOnboarded: saved.isOnboarded || false,
-      addedWordbooks: saved.addedWordbooks || [],
       catFood: saved.catFood || 0,
       satiety: saved.satiety ?? 100,
       intimacy: saved.intimacy ?? 10,
@@ -128,15 +143,6 @@ export function UserProvider({ children }) {
     });
   }, []);
 
-  const addWordbook = useCallback((wordbookId) => {
-    setState((prev) => {
-      if (prev.addedWordbooks.includes(wordbookId)) return prev;
-      const next = { ...prev, addedWordbooks: [...prev.addedWordbooks, wordbookId] };
-      saveUser(next);
-      return next;
-    });
-  }, []);
-
   const resetAll = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY);
     setState({
@@ -145,7 +151,6 @@ export function UserProvider({ children }) {
       selectedCatId: null,
       catNickname: null,
       isOnboarded: false,
-      addedWordbooks: [],
       catFood: 0,
       satiety: 100,
       intimacy: 10,
@@ -186,7 +191,6 @@ export function UserProvider({ children }) {
         clearQuizProgress,
         addFavoriteWord,
         removeFavoriteWord,
-        addWordbook,
         resetAll,
       }}
     >
