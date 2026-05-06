@@ -5,10 +5,10 @@ import styles from './UserStatusTab.module.css';
 
 export default function UserStatusTab() {
   const navigate = useNavigate();
-  const { username, email, catNickname, selectedCatId, catFood, resetAll } = useUser();
+  const { username, catNickname, selectedCatId, catFood, resetAll } = useUser();
   const cat = cats.find((c) => c.id === selectedCatId);
 
-  const handleLogout = () => {
+  const handleReset = () => {
     resetAll();
     navigate('/');
   };
@@ -23,11 +23,6 @@ export default function UserStatusTab() {
         <div className={styles.row}>
           <span className={styles.label}>用户名</span>
           <span className={styles.value}>{username}</span>
-        </div>
-        <div className={styles.divider} />
-        <div className={styles.row}>
-          <span className={styles.label}>邮箱</span>
-          <span className={styles.value}>{email}</span>
         </div>
         <div className={styles.divider} />
         <div className={styles.row}>
@@ -46,8 +41,8 @@ export default function UserStatusTab() {
         </div>
       </div>
 
-      <button className={styles.logoutBtn} onClick={handleLogout}>
-        退出登录
+      <button className={styles.logoutBtn} onClick={handleReset}>
+        重置数据
       </button>
     </div>
   );

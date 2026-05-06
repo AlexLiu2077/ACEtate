@@ -62,6 +62,45 @@ const acidWords = [
   { id: 'acid_carbonic', term: 'Carbonic acid', meaning: 'H₂CO₃' },
 ];
 
+const baseWords = [
+  { id: 'base_sodium_hydroxide', term: 'Sodium hydroxide', meaning: 'NaOH' },
+  { id: 'base_potassium_hydroxide', term: 'Potassium hydroxide', meaning: 'KOH' },
+  { id: 'base_calcium_hydroxide', term: 'Calcium hydroxide', meaning: 'Ca(OH)₂' },
+  { id: 'base_barium_hydroxide', term: 'Barium hydroxide', meaning: 'Ba(OH)₂' },
+  { id: 'base_aluminum_hydroxide', term: 'Aluminum hydroxide', meaning: 'Al(OH)₃' },
+  { id: 'base_iron_iii_hydroxide', term: 'Iron(III) hydroxide', meaning: 'Fe(OH)₃' },
+  { id: 'base_iron_ii_hydroxide', term: 'Iron(II) hydroxide', meaning: 'Fe(OH)₂' },
+  { id: 'base_copper_ii_hydroxide', term: 'Copper(II) hydroxide', meaning: 'Cu(OH)₂' },
+  { id: 'base_magnesium_hydroxide', term: 'Magnesium hydroxide', meaning: 'Mg(OH)₂' },
+];
+
+const saltWords = [
+  { id: 'salt_sodium_chloride', term: 'Sodium chloride', meaning: 'NaCl' },
+  { id: 'salt_potassium_iodide', term: 'Potassium iodide', meaning: 'KI' },
+  { id: 'salt_lithium_fluoride', term: 'Lithium fluoride', meaning: 'LiF' },
+  { id: 'salt_sodium_sulfide', term: 'Sodium sulfide', meaning: 'Na₂S' },
+  { id: 'salt_sodium_perchlorate', term: 'Sodium perchlorate', meaning: 'NaClO₄' },
+  { id: 'salt_sodium_chlorate', term: 'Sodium chlorate', meaning: 'NaClO₃' },
+  { id: 'salt_sodium_chlorite', term: 'Sodium chlorite', meaning: 'NaClO₂' },
+  { id: 'salt_sodium_hypochlorite', term: 'Sodium hypochlorite', meaning: 'NaClO' },
+  { id: 'salt_potassium_sulfate', term: 'Potassium sulfate', meaning: 'K₂SO₄' },
+  { id: 'salt_sodium_sulfite', term: 'Sodium sulfite', meaning: 'Na₂SO₃' },
+  { id: 'salt_potassium_nitrate', term: 'Potassium nitrate', meaning: 'KNO₃' },
+  { id: 'salt_sodium_nitrite', term: 'Sodium nitrite', meaning: 'NaNO₂' },
+  { id: 'salt_calcium_phosphate', term: 'Calcium phosphate', meaning: 'Ca₃(PO₄)₂' },
+  { id: 'salt_sodium_carbonate', term: 'Sodium carbonate', meaning: 'Na₂CO₃' },
+  { id: 'salt_sodium_hydrogen_carbonate', term: 'Sodium hydrogen carbonate', meaning: 'NaHCO₃' },
+  { id: 'salt_sodium_dihydrogen_phosphate', term: 'Sodium dihydrogen phosphate', meaning: 'NaH₂PO₄' },
+  { id: 'salt_sodium_monohydrogen_phosphate', term: 'Sodium monohydrogen phosphate', meaning: 'Na₂HPO₄' },
+  { id: 'salt_iron_iii_chloride', term: 'Iron(III) chloride', meaning: 'FeCl₃' },
+  { id: 'salt_iron_ii_chloride', term: 'Iron(II) chloride', meaning: 'FeCl₂' },
+  { id: 'salt_copper_ii_sulfate', term: 'Copper(II) sulfate', meaning: 'CuSO₄' },
+  { id: 'salt_manganese_ii_chlorite', term: 'Manganese(II) chlorite', meaning: 'Mn(ClO₂)₂' },
+  { id: 'salt_ammonium_carbonate', term: 'Ammonium carbonate', meaning: '(NH₄)₂CO₃' },
+  { id: 'salt_zinc_periodate', term: 'Zinc periodate', meaning: 'Zn(IO₄)₂' },
+  { id: 'salt_chromium_iii_iodide', term: 'Chromium(III) iodide', meaning: 'CrI₃' },
+];
+
 const oxyanionWords = [
   { id: 'oxyanion_nitrate', term: 'Nitrate ion', meaning: 'NO₃⁻' },
   { id: 'oxyanion_nitrite', term: 'Nitrite ion', meaning: 'NO₂⁻' },
@@ -135,6 +174,8 @@ const elementChapters = [
 
 const chemistryReferenceChapters = [
   { id: 'acids', title: '酸', words: acidWords },
+  { id: 'bases', title: '碱', words: baseWords },
+  { id: 'salts', title: '盐', words: saltWords },
   { id: 'oxyanions', title: '含氧酸根', words: oxyanionWords },
   { id: 'organic_compounds', title: '有机物', words: organicWords },
   { id: 'common_ions', title: '常见阴阳离子', words: commonIonWords },

@@ -21,7 +21,7 @@ export function UserProvider({ children }) {
   const [state, setState] = useState(() => {
     const saved = loadUser();
     return {
-      email: saved.email || null,
+
       username: saved.username || null,
       selectedCatId: saved.selectedCatId || null,
       catNickname: saved.catNickname || null,
@@ -43,7 +43,7 @@ export function UserProvider({ children }) {
     });
   }, []);
 
-  const setEmail = useCallback((email) => update({ email }), [update]);
+
   const setUsername = useCallback((username) => update({ username }), [update]);
   const selectCat = useCallback((selectedCatId) => update({ selectedCatId }), [update]);
   const nameCat = useCallback((catNickname) => update({ catNickname, isOnboarded: true }), [update]);
@@ -140,7 +140,7 @@ export function UserProvider({ children }) {
   const resetAll = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY);
     setState({
-      email: null,
+
       username: null,
       selectedCatId: null,
       catNickname: null,
@@ -175,7 +175,7 @@ export function UserProvider({ children }) {
     <UserContext.Provider
       value={{
         ...state,
-        setEmail,
+
         setUsername,
         selectCat,
         nameCat,
