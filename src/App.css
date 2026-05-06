@@ -8,6 +8,7 @@
   --color-primary-dark: #7C3AED;
   
   /* Gradient preset for background - Lavender */
+  --gradient-primary: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
   --gradient-bg: linear-gradient(135deg, #fef7ff 0%, #e0e7ff 50%, #f3e8ff 100%);
   --gradient-btn: linear-gradient(180deg, #A78BFA 0%, #8B5CF6 100%);
   

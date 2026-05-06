@@ -68,8 +68,8 @@ export default function MyCatTab() {
       </div>
       <h2 className={styles.nickname}>{catNickname}</h2>
       <div className={styles.statusCard}>
-        <StatusBar label="🍚 饱食度" value={satiety} max={100} />
-        <StatusBar label="💗 亲密度" value={intimacy} max={100} />
+        <StatusBar label="🍚 饱食度" value={satiety} max={100} color="var(--color-success)" />
+        <StatusBar label="💗 亲密度" value={intimacy} max={100} color="var(--color-secondary)" />
         <div className={styles.foodPill}>🍘 猫粮 {catFood}</div>
       </div>
       <div className={styles.actionRow}>
@@ -89,7 +89,7 @@ export default function MyCatTab() {
   );
 }
 
-function StatusBar({ label, value, max }) {
+function StatusBar({ label, value, max, color }) {
   const percent = Math.min(100, Math.round((value / max) * 100));
 
   return (
@@ -99,7 +99,7 @@ function StatusBar({ label, value, max }) {
         <span>{value}</span>
       </div>
       <div className={styles.statusTrack}>
-        <div className={styles.statusFill} style={{ width: `${percent}%` }} />
+        <div className={styles.statusFill} style={{ width: `${percent}%`, background: color || 'var(--gradient-primary)' }} />
       </div>
     </div>
   );
