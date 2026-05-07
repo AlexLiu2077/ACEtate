@@ -156,7 +156,7 @@ export function UserProvider({ children }) {
         saveUser(next);
         return next;
       });
-    }, 180000);
+    }, 60000);
 
     return () => window.clearInterval(timer);
   }, []);
