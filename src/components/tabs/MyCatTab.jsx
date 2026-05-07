@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useUser } from '../../context/UserContext';
 import cats from '../../data/cats';
 import styles from './MyCatTab.module.css';
@@ -27,6 +27,17 @@ export default function MyCatTab() {
   }, [interaction, intimacy, satiety]);
 
   const videoSrc = cat ? `/assets/videos/${cat.id}_${videoState}.mp4` : '';
+  const [videoElement, setVideoElement] = useState(null);
+
+  useEffect(() => {
+    if (videoElement && videoSrc) {
+      videoElement.load();
+      const playPromise = videoElement.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(e => console.log("Autoplay blocked or load error:", e));
+      }
+    }
+  }, [videoSrc, videoElement]);
 
   if (!cat) return null;
 
@@ -57,13 +68,15 @@ export default function MyCatTab() {
       <TopBar />
       <div className={styles.videoFrame}>
         <video
-          key={videoSrc}
+          ref={setVideoElement}
           className={styles.catVideo}
           src={videoSrc}
           poster={cat.image}
           autoPlay
           muted
           playsInline
+          webkit-playsinline="true"
+          preload="auto"
           loop={!interaction}
           onEnded={() => setInteraction(null)}
         />
