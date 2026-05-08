@@ -8,7 +8,8 @@ import App from './App.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    {/* 使用 import.meta.env.BASE_URL 自动同步 vite.config.js 中的 base 配置 */}
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <UserProvider>
         <App />
       </UserProvider>
