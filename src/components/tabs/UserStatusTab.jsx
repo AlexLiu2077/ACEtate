@@ -9,7 +9,8 @@ export default function UserStatusTab() {
   const navigate = useNavigate();
   const { username, catNickname, selectedCatId, catFood, resetAll } = useUser();
   const [showConfirm, setShowConfirm] = useState(false);
-  const [showAbout, setShowAbout] = useState(false);
+  const [showCredits, setShowCredits] = useState(false);
+  const [showContact, setShowContact] = useState(false);
   const cat = cats.find((c) => c.id === selectedCatId);
 
   const handleReset = () => {
@@ -63,9 +64,14 @@ export default function UserStatusTab() {
 
       {/* Action Buttons */}
       <div className={styles.actionList}>
-        <button className={styles.actionBtn} onClick={() => setShowAbout(true)}>
-          <span className={styles.btnIcon}>❔</span>
-          <span className={styles.btnText}>关于</span>
+        <button className={styles.actionBtn} onClick={() => setShowCredits(true)}>
+          <span className={styles.btnIcon}>🙏</span>
+          <span className={styles.btnText}>致谢</span>
+          <span className={styles.btnArrow}>›</span>
+        </button>
+        <button className={styles.actionBtn} onClick={() => setShowContact(true)}>
+          <span className={styles.btnIcon}>📧</span>
+          <span className={styles.btnText}>联系</span>
           <span className={styles.btnArrow}>›</span>
         </button>
       </div>
@@ -84,13 +90,27 @@ export default function UserStatusTab() {
         onConfirm={handleReset}
       />
 
-      {showAbout && (
-        <div className={styles.modalOverlay} onClick={() => setShowAbout(false)}>
+      {showCredits && (
+        <div className={styles.modalOverlay} onClick={() => setShowCredits(false)}>
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <h3 className={styles.modalTitle}>关于</h3>
-            <p className={styles.modalText}>致谢：谁谁谁</p>
-            <p className={styles.modalText}>联系我：xxx@gmail.com</p>
-            <button className={styles.modalBtn} onClick={() => setShowAbout(false)}>确定</button>
+            <h3 className={styles.modalTitle}>致谢</h3>
+            <p className={styles.modalText}>感谢你们参与内测并提供了宝贵的反馈与意见，排名不分先后：</p>
+            <div style={{ marginTop: '12px' }}>
+              {['Sherlock Zeng', 'Justin Fan', 'Grase Guo', 'Joshua Huang', 'Akira Xu', 'Arvin Yu', 'YC Zhao', 'YM Zhang'].map(name => (
+                <p key={name} className={styles.modalText}>{name}</p>
+              ))}
+            </div>
+            <button className={styles.modalBtn} onClick={() => setShowCredits(false)}>确定</button>
+          </div>
+        </div>
+      )}
+
+      {showContact && (
+        <div className={styles.modalOverlay} onClick={() => setShowContact(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <h3 className={styles.modalTitle}>联系</h3>
+            <p className={styles.modalText}>12412625@mail.sustech.edu.cn</p>
+            <button className={styles.modalBtn} onClick={() => setShowContact(false)}>确定</button>
           </div>
         </div>
       )}
